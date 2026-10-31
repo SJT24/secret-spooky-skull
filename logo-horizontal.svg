@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360">
+<rect width="1200" height="360" fill="#fff"/>
+<g transform="translate(82 84) scale(1.48)">
+<rect x="4" y="4" width="120" height="120" rx="29" fill="#16834A"/>
+<path d="M30 88V43h12v45H30zm28 0V29h12v59H58zm28 0V55h12v33H86z" fill="#fff"/>
+<path d="M30 98h68" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".9"/>
+<circle cx="92" cy="34" r="11" fill="#E7B323"/>
+<path d="M70 39l14-5" stroke="#E7B323" stroke-width="6" stroke-linecap="round"/>
+</g>
+<text x="330" y="222" font-family="Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="126" font-weight="800" letter-spacing="2" fill="#16834A">善</text>
+<text x="472" y="222" font-family="Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="126" font-weight="800" letter-spacing="2" fill="#E0A916">鸡</text>
+<text x="614" y="222" font-family="Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="126" font-weight="800" letter-spacing="2" fill="#16834A">通</text>
+<text x="336" y="278" font-family="Arial, sans-serif" font-size="23" font-weight="600" letter-spacing="8" fill="#718078">SMART · OPEN · CONNECTED</text>
+</svg>

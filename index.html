@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>善鸡通 · 搜索</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<meta name="theme-color" content="#16834A">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="search" type="application/opensearchdescription+xml" title="善鸡通" href="/opensearch.xml">
+<style>
+:root{--bg:#fff;--fg:#202124;--mut:#70757a;--bd:#dfe1e5;--hov:#f1f3f4;--g:#16834a;--y:#e0a916;--lk:#126b3d}
+@media (prefers-color-scheme:dark){:root{--bg:#0b0f0c;--fg:#e8eaed;--mut:#9aa0a6;--bd:#3c4043;--hov:#1b211d;--g:#48b879;--y:#f0c34a;--lk:#48b879}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Arial,sans-serif}
+main{max-width:720px;margin:0 auto;padding:0 16px 40px}main.home{margin-top:15vh}
+.logo{display:flex;align-items:center;justify-content:center;gap:14px;font-size:clamp(44px,14vw,72px);font-weight:800;letter-spacing:2px;text-align:center;margin:0 0 22px;cursor:pointer;color:var(--g)}
+.logo img{width:clamp(54px,14vw,76px);height:clamp(54px,14vw,76px);border-radius:18px;flex:none}
+.logo .wordmark{display:inline-flex;align-items:center;gap:2px}
+.logo .wordmark span:nth-child(2){color:var(--y)}
+.res .logo{justify-content:flex-start;font-size:28px;text-align:left;margin:16px 0 10px;gap:9px}
+.res .logo img{width:32px;height:32px;border-radius:9px}
+.box{display:flex;border:1px solid var(--bd);border-radius:26px;padding:0 16px;height:48px;align-items:center}
+.box:focus-within{box-shadow:0 1px 8px rgba(22,131,74,.24);border-color:transparent}
+.box input{flex:1;border:0;outline:0;background:transparent;color:var(--fg);font-size:16px;height:100%}
+.hint{font-size:12px;color:var(--mut);text-align:center;margin-top:10px}.res .hint{display:none}
+.tabs{display:flex;gap:2px;margin-top:10px;border-bottom:1px solid var(--bd);overflow-x:auto}.home .tabs{justify-content:center}
+.tabs a{padding:8px 12px;font-size:14px;color:var(--mut);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.tabs a.on{color:var(--g);border-color:var(--g);font-weight:600}
+.filters{display:none;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px;font-size:13px;color:var(--mut)}.res .filters.show{display:flex}
+.filters select{background:var(--hov);color:var(--fg);border:0;border-radius:8px;padding:6px 8px;font-size:13px}
+#trend{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px}.res #trend{display:none}
+.chip{font-size:13px;color:var(--mut);background:var(--hov);padding:5px 12px;border-radius:14px;cursor:pointer}
+.meta{font-size:13px;color:var(--mut);margin:14px 0 4px}
+.dym{font-size:15px;margin:10px 0}.dym a{color:var(--lk);font-weight:600;cursor:pointer}
+.askai{display:block;margin:10px 0;padding:10px 14px;border:1px solid var(--g);border-radius:12px;color:var(--lk);cursor:pointer;font-size:14px}
+.r{padding:10px 0;display:flex;gap:12px}.r .rb{flex:1;min-width:0}.r .th{width:96px;height:64px;object-fit:cover;border-radius:8px;background:var(--hov);flex:none}
+.r .u{font-size:12px;color:var(--mut);word-break:break-all}
+.r a.t{font-size:18px;color:var(--lk);text-decoration:none}.r a.t:hover{text-decoration:underline}
+.r p{margin:3px 0;font-size:14px;line-height:1.55}
+.r .x{font-size:12px;color:var(--mut)}.r .x a,.r .x span.l{color:var(--mut);cursor:pointer;margin-right:12px;text-decoration:underline}
+.badge{font-size:11px;background:var(--hov);border-radius:4px;padding:1px 5px;margin-right:6px;color:var(--mut)}
+mark{background:rgba(245,180,0,.35);color:inherit}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:10px}
+.grid a{display:block;color:var(--fg);text-decoration:none;font-size:12px}
+.grid img{width:100%;height:120px;object-fit:cover;border-radius:8px;background:var(--hov);display:block}
+.grid span{display:block;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--mut)}
+.rel{margin-top:22px}.rel h4{margin:0 0 8px;font-size:14px;color:var(--mut)}.rel .chip{display:inline-block;margin:0 8px 8px 0}
+.pg{display:flex;gap:10px;justify-content:center;margin-top:18px}
+.pg button,.newchat{background:var(--hov);color:var(--fg);border:0;border-radius:6px;padding:9px 18px;cursor:pointer}
+.pg button:disabled{opacity:.4;cursor:default}
+.msg{margin:14px 0;display:flex}.msg.u{justify-content:flex-end}
+.bub{max-width:92%;padding:10px 14px;border-radius:16px;line-height:1.6;font-size:15px;white-space:pre-wrap;word-break:break-word}
+.u .bub{background:var(--g);color:#000}.a .bub{background:var(--hov)}
+.bub a{color:var(--lk);font-weight:600;text-decoration:none}
+.srcs{margin-top:8px;font-size:12px;color:var(--mut);white-space:normal}.srcs a{display:block;font-weight:400;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.err{color:#e5484d}
+</style>
+</head>
+<body>
+<main class="home" id="m">
+  <div class="logo" id="logo" aria-label="善鸡通"><img src="assets/favicon.svg" alt=""><span class="wordmark"><span>善</span><span>鸡</span><span>通</span></span></div>
+  <form id="f"><div class="box"><input id="q" type="search" list="sg" autocomplete="off" autofocus placeholder="搜索已收录的网页…"><datalist id="sg"></datalist></div></form>
+  <div class="hint" id="hint">支持 "精确短语" · -排除词 · site:example.com · filetype:pdf · lang:en</div>
+  <div class="tabs" id="tabs"><a data-t="web" class="on">网页</a><a data-t="img">图片</a><a data-t="vid">视频</a><a data-t="news">新闻</a><a data-t="ai" id="aiTab" style="display:none">善鸡通AI</a></div>
+  <div class="filters" id="filters">
+    <select id="fTime"><option value="">时间不限</option><option value="day">过去一天</option><option value="week">过去一周</option><option value="month">过去一月</option><option value="year">过去一年</option></select>
+    <select id="fLang"><option value="">所有语言</option><option value="zh">中文</option><option value="en">English</option></select>
+    <label><input type="checkbox" id="fSafe" checked> 安全搜索</label>
+    <span class="chip" id="clrHist" style="display:none">清除搜索历史</span>
+  </div>
+  <div id="trend"></div>
+  <div class="meta" id="meta"></div><div id="out"></div><div class="pg" id="pg"></div><div class="rel" id="rel"></div>
+<div id="backendNotice" class="hint" style="margin-top:28px"></div>
+</main>
+<script>
+const $=i=>document.getElementById(i);
+const API_BASE=(new URLSearchParams(location.search).get('apiBase')||'').replace(/\/$/,'');
+const apiUrl=p=>API_BASE+p;
+let tab='web',timer,aiOn=false,chat=[],busy=false;
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const LS={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+if(!API_BASE){$('backendNotice').textContent='尚未配置搜索服务地址：请在浏览器底部点击“服务设置”，填写已部署的善鸡通搜索 API 地址。'}else{$('backendNotice').textContent='搜索服务：'+API_BASE}
+const st=LS.get('sjt-f',{time:'',lang:'',safe:true});
+$('fTime').value=st.time;$('fLang').value=st.lang;$('fSafe').checked=st.safe;
+['fTime','fLang','fSafe'].forEach(i=>$(i).onchange=()=>{LS.set('sjt-f',{time:$('fTime').value,lang:$('fLang').value,safe:$('fSafe').checked});if($('q').value.trim()&&tab!=='ai')go(1)});
+const hist=()=>LS.get('sjt-h',[]);
+function pushHist(q){LS.set('sjt-h',[q,...hist().filter(x=>x!==q)].slice(0,30))}
+$('clrHist').onclick=()=>{LS.set('sjt-h',[]);$('sg').innerHTML='';$('clrHist').style.display='none'};
+function setTab(t){tab=t;document.querySelectorAll('#tabs a').forEach(a=>a.className=a.dataset.t===t?'on':'');
+  $('q').placeholder=t==='ai'?'向善鸡通AI提问…':'搜索已收录的网页…';
+  $('filters').className='filters'+(['web','vid','news'].includes(t)?' show':'');
+  $('fTime').style.display=t==='news'?'none':'';$('clrHist').style.display=hist().length?'':'none'}
+$('tabs').addEventListener('click',e=>{const t=e.target.dataset.t;if(!t)return;setTab(t);
+  if(t==='ai'){$('m').className='res';$('pg').innerHTML='';$('rel').innerHTML='';renderChat()}else if($('q').value.trim())go(1)});
+
+/* ---------------- 搜索 ---------------- */
+function params(q,p){
+  const u=new URLSearchParams({q,limit:'10',offset:String((p-1)*10),page:p});
+  if($('fSafe').checked)u.set('safe','1');
+  if(tab==='web'||tab==='vid'){if($('fTime').value)u.set('time',$('fTime').value);}
+  if($('fLang').value&&tab!=='img')u.set('lang',$('fLang').value);
+  if(tab==='vid')u.set('video','1');
+  if(tab==='news'){u.set('time','month');u.set('sort','date')}
+  return u;
+}
+function result(x){
+  const d=el('div','r');
+  if(tab==='vid'&&x.thumb){const i=el('img','th');i.src=x.thumb;i.loading='lazy';i.referrerPolicy='no-referrer';i.alt='';d.append(i)}
+  const b=el('div','rb'),a=el('a','t',x.title);a.href=x.url;a.target='_blank';a.rel='noopener';
+  const s=el('p');s.textContent=x.snippet||x.description||''; // API 返回内容一律按纯文本渲染，避免收录网页注入脚本
+  const meta=el('div','x');
+  if(x.filetype==='pdf')meta.append(Object.assign(el('span','badge','PDF')));
+  if(x.published)meta.append(el('span','',new Date(x.published).toLocaleDateString('zh-CN')+'  '));
+  const snap=el('a','','快照');snap.href=apiUrl('/cache?url=')+encodeURIComponent(x.url);snap.target='_blank';
+  const rep=el('span','l','举报');rep.onclick=async()=>{const why=prompt('举报原因(可选):');if(why===null)return;
+    const r=await fetch(apiUrl('/api/report'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:x.url,reason:why})}).then(r=>r.json()).catch(()=>({}));
+    alert(r.ok?'已提交,谢谢':'提交失败,请稍后再试')};
+  meta.append(snap,rep);
+  b.append(el('div','u',x.url),a,s,meta);d.append(b);return d;
+}
+async function go(p){
+  const q=$('q').value.trim();if(!q)return;
+  if(tab==='ai')return ask(q);
+  if(p===1)pushHist(q);
+  history.replaceState(null,'','?q='+encodeURIComponent(q)+(tab!=='web'?'&tab='+tab:'')+(API_BASE?'&apiBase='+encodeURIComponent(API_BASE):''));
+  if(tab==='img'){ $('m').className='res';$('out').innerHTML='';$('meta').textContent='当前搜索后端未提供图片搜索接口';return }
+  const r=await fetch(apiUrl('/api/search')+'?'+params(q,p)).then(r=>r.json()).catch(()=>null);
+  $('m').className='res';$('out').innerHTML='';$('pg').innerHTML='';$('rel').innerHTML='';
+  if(!r||r.error){$('meta').textContent='搜索失败,请稍后再试';return}
+  $('meta').textContent='约 '+r.total+' 条结果'+(r.tookMs!==undefined?'('+(r.tookMs/1000).toFixed(2)+' 秒'+(r.semantic?',含语义匹配':'')+')':'');
+  if(r.didYouMean){const d=el('div','dym','你是不是想找:');const a=el('a','',r.didYouMean);a.onclick=()=>{$('q').value=r.didYouMean;go(1)};d.append(a);$('out').append(d)}
+  if(aiOn&&tab==='web'){const b=el('a','askai','✨ 问善鸡通AI:'+q);b.onclick=()=>{setTab('ai');ask(q)};$('out').append(b)}
+  if(!r.results.length){$('out').append(el('p','',tab==='img'?'没有找到相关图片。':'没有找到相关结果。'));return}
+  if(tab==='img'){
+    const g=el('div','grid');
+    r.results.forEach(x=>{const a=el('a');a.href=x.pageUrl;a.target='_blank';a.rel='noopener';
+      const i=el('img');i.src=x.src;i.alt=x.alt;i.loading='lazy';i.referrerPolicy='no-referrer';
+      a.append(i,el('span','',x.alt));g.append(a)});
+    $('out').append(g);
+  }else r.results.forEach(x=>$('out').append(result(x)));
+  const pageSize=Number(r.size||r.limit||10);const pages=Math.ceil(r.total/pageSize);
+  if(pages>1){
+    const prev=el('button','','上一页'),next=el('button','','下一页');
+    prev.disabled=p<=1;next.disabled=p>=pages;prev.onclick=()=>go(p-1);next.onclick=()=>go(p+1);
+    $('pg').append(prev,next);
+  }
+  if(r.related&&r.related.length){$('rel').append(el('h4','','相关搜索'));r.related.forEach(t=>{const c=el('a','chip',t);c.onclick=()=>{$('q').value=t;go(1)};$('rel').append(c)})}
+  window.scrollTo(0,0);
+}
+
+/* ---------------- 善鸡通AI ---------------- */
+function bubble(m){
+  const row=el('div','msg '+(m.role==='user'?'u':'a')),b=el('div','bub');
+  if(m.role==='user')b.textContent=m.content;
+  else{
+    const src=m.sources||[];
+    let h=esc(m.content||(m.pending?'思考中…':'')).replace(/\[(\d+)\]/g,(x,n)=>{const s=src.find(y=>y.n==n);return s?'<a href="'+esc(s.url)+'" target="_blank" rel="noopener" title="'+esc(s.title)+'">['+n+']</a>':x});
+    if(m.error)h+=(m.content?'\n':'')+'<span class="err">'+esc(m.error)+'</span>';
+    b.innerHTML=h;
+    if(src.length){const d=el('div','srcs','参考的收录网页');src.forEach(s=>{const a=el('a','','['+s.n+'] '+s.title);a.href=s.url;a.target='_blank';a.rel='noopener';d.append(a)});b.append(d)}
+  }
+  row.append(b);return row;
+}
+function renderChat(){
+  $('meta').textContent='';$('out').innerHTML='';
+  if(!chat.length)$('out').append(el('p','meta','向善鸡通AI提问吧。它会先检索已收录的网页,再带着引用回答你。'));
+  chat.forEach(m=>$('out').append(bubble(m)));
+  if(chat.length){const n=el('button','newchat','新对话');n.onclick=()=>{if(!busy){chat=[];renderChat()}};$('out').append(n)}
+  window.scrollTo(0,document.body.scrollHeight);
+}
+async function ask(q){
+  if(busy)return;busy=true;$('q').value='';$('m').className='res';
+  const history=chat.filter(m=>m.content).map(m=>({role:m.role,content:m.content}));
+  chat.push({role:'user',content:q});const a={role:'assistant',content:'',sources:[],pending:true};chat.push(a);renderChat();
+  try{
+    const r=await fetch(apiUrl('/api/ai'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({q,history})});
+    if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.error==='daily_limit'?'今天的 AI 提问额度用完了,明天再来':e.error==='rate_limited'?'提问太频繁,请稍后再试':'善鸡通AI 暂时不可用')}
+    const rd=r.body.getReader(),dec=new TextDecoder();let buf='';
+    for(;;){const {done,value}=await rd.read();if(done)break;buf+=dec.decode(value,{stream:true});let i;
+      while((i=buf.indexOf('\n\n'))>=0){const ev=buf.slice(0,i);buf=buf.slice(i+2);if(!ev.startsWith('data:'))continue;
+        const d=JSON.parse(ev.slice(5));
+        if(d.t==='sources')a.sources=d.sources;else if(d.t==='delta')a.content+=d.x;else if(d.t==='error')a.error=d.msg;
+        renderChat()}}
+  }catch(e){a.error=e.message}
+  a.pending=false;busy=false;renderChat();
+}
+
+/* ---------------- 其他 ---------------- */
+$('f').addEventListener('submit',e=>{e.preventDefault();go(1)});
+$('logo').onclick=()=>{$('m').className='home';$('q').value='';$('out').innerHTML='';$('pg').innerHTML='';$('rel').innerHTML='';$('meta').textContent='';history.replaceState(null,'','/')};
+$('q').addEventListener('input',()=>{clearTimeout(timer);if(tab==='ai')return;timer=setTimeout(async()=>{
+  const v=$('q').value.trim();if(!v)return;
+  const local=hist().filter(h=>h.toLowerCase().includes(v.toLowerCase())).slice(0,4);
+  const l=await fetch(apiUrl('/api/suggest')+'?q='+encodeURIComponent(v)).then(r=>r.json()).catch(()=>[]);
+  $('sg').innerHTML='';[...new Set([...local,...l])].forEach(t=>{const o=el('option');o.value=t;$('sg').append(o)});
+},200)});
+fetch(apiUrl('/api/trending')).then(r=>r.json()).then(l=>l.forEach(t=>{const a=el('a','chip',t);a.onclick=()=>{$('q').value=t;go(1)};$('trend').append(a)})).catch(()=>{});
+fetch(apiUrl('/api/ai/status')).then(r=>r.json()).then(s=>{aiOn=!!s.enabled;if(aiOn)$('aiTab').style.display=''}).catch(()=>{});
+const sp=new URLSearchParams(location.search);
+setTab(['img','vid','news'].includes(sp.get('tab'))?sp.get('tab'):'web');
+if(sp.get('q')){$('q').value=sp.get('q');go(1)} // 支持 /?q=关键词(浏览器默认搜索引擎用)
+</script>
+</body>
+</html>
